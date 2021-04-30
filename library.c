@@ -48,3 +48,74 @@ void printMessageCenter(const char* message){
     }
     printf("%s", message);
 }
+ 
+ 
+void headMessage(const char *message)
+{
+    system("cls");
+    printf("\t\t\t###########################################################################");
+    printf("\n\t\t\t############                                                   ############");
+    printf("\n\t\t\t############      Library management System Project in C       ############");
+    printf("\n\t\t\t############                                                   ############");
+    printf("\n\t\t\t###########################################################################");
+    printf("\n\t\t\t---------------------------------------------------------------------------\n");
+    printMessageCenter(message);
+    printf("\n\t\t\t----------------------------------------------------------------------------");
+}
+
+void welcomeMessage()
+{
+     
+    printf("\n\n\n\n\n");
+    printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+    printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    printf("\n\t\t\t        =                 WELCOME                   =");
+    printf("\n\t\t\t        =                   To                      =");
+    printf("\n\t\t\t        =                 LIBRARY                   =");
+    printf("\n\t\t\t        =               MANAGEMENT                  =");
+    printf("\n\t\t\t        =                 SYSTEM                    =");
+    printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+    printf("\n\n\n\t\t\t Enter any key to continue.....");
+}
+
+int isNameValid(const char *name){
+    int validName = 1;
+    int len = 0;
+    int index = 0;
+
+    len = strlen(name);
+    for ( index = 0; index < len; index++){
+        if (!(isalpha(name[index])) && (name[index] != '\n') && (name[index]!=" "))
+        {
+            validName = 0;
+            break;
+        }
+    }
+    return validName;
+    
+}
+
+int IsLeapYear(int year){
+    return (((year % 4 == 0) &&
+             (year % 100)) ||
+            (year % 400 == 0));
+}
+int isValidDate(Date *validDate){
+    if (validDate ->yyy > MAX_YEAR)||
+       (validDate -> yyy < MIN_YEAR) 
+       return 0;
+    if (validDate ->mm <1|| validDate ->mm >12)
+        return 0;
+    if (validDate->dd<1 || validDate->dd >31)
+        return 0;
+    if (validDate->mm==2)
+    {
+        if (isLeapYear(validDate->yyy))
+            return (validDate->dd <= 29);
+        else
+           return(validDate->dd)
+        
+    }
+    
+}
