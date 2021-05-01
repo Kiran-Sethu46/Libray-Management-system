@@ -159,7 +159,7 @@ void addBookInDataBase()
     {
         printf("\n\t\t\tAuthor Name  = ");
         fflush(stdin);
-        fgets(addBookInfoInDataBase.authorName,MAX_AUTHOR_NAME,stdin);
+        fgets(addBookInfoInDataBase.authorName,Max_AuthorName,stdin);
         status = isNameValid(addBookInfoInDataBase.authorName);
         if (!status)
         {
@@ -171,7 +171,7 @@ void addBookInDataBase()
     {
         printf("\n\t\t\tStudent Name  = ");
         fflush(stdin);
-        fgets(addBookInfoInDataBase.studentName,MAX_STUDENT_NAME,stdin);
+        fgets(addBookInfoInDataBase.studentName,Max_StudentName,stdin);
         status = isNameValid(addBookInfoInDataBase.studentName);
         if (!status)
         {
@@ -194,4 +194,52 @@ void addBookInDataBase()
     while(!status);
     fwrite(&addBookInfoInDataBase,sizeof(addBookInfoInDataBase), 1, fp);
     fclose(fp);
+}
+void searchBooks()
+{
+    int found = 0;
+    char bookName[Max_BookName] = {0};
+    s_BooksInfo addBookInfoInDataBase = {0};
+    FILE *fp = NULL;
+    int status = 0;
+    fp = fopen(File_Name,"rb");
+    if(fp == NULL)
+    {
+        printf("\n\t\t\tFile is not opened\n");
+        exit(1);
+    }
+    headMessage("SEARCH BOOKS");
+    //put the control on books detail
+    if (fseek(fp,FILE_Header_Size,SEEK_SET) != 0)
+    {
+        fclose(fp);
+        printf("\n\t\t\tFacing issue while reading file\n");
+        exit(1);
+    }
+    printf("\n\n\t\t\tEnter Book Name to search:");
+    fflush(stdin);
+    fgets(bookName,Max_BookName,stdin);
+    while (fread (&addBookInfoInDataBase, sizeof(addBookInfoInDataBase), 1, fp))
+    {
+        if(!strcmp(addBookInfoInDataBase.bookName, bookName))
+        {
+            found = 1;
+            break;
+        }
+    }
+    if(found)
+    {
+        printf("\n\t\t\tBook id = %u\n",addBookInfoInDataBase.books_id);
+        printf("\t\t\tBook name = %s",addBookInfoInDataBase.bookName);
+        printf("\t\t\tBook authorName = %s",addBookInfoInDataBase.authorName);
+        printf("\t\t\tBook issue date(day/month/year) =  (%d/%d/%d)",addBookInfoInDataBase.bookIssueDate.dd,
+               addBookInfoInDataBase.bookIssueDate.mm, addBookInfoInDataBase.bookIssueDate.yyyy);
+    }
+    else
+    {
+        printf("\n\t\t\tNo Record");
+    }
+    fclose(fp);
+    printf("\n\n\n\t\t\tPress any key to go to main menu.....");
+    getchar();
 }
